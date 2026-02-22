@@ -2,95 +2,278 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AHSAN-MD Pair</title>
+  <title>AHSAN-MD | ELITE V2</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
+    :root {
+      --primary: #6e8efb;
+      --accent: #a777e3;
+      --neon: #00ffaa;
+      --bg: #050510;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #121212;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-    }
-    h1 {
-      color: #00ff88;
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-    input, button {
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      margin: 10px 0;
-      width: 100%;
-      max-width: 400px;
-    }
-    input {
-      background: #222;
+      background: var(--bg);
       color: #fff;
-      border: 1px solid #444;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      perspective: 1000px;
     }
-    button {
-      background-color: #00ff88;
-      color: #000;
-      cursor: pointer;
-      transition: background 0.3s ease;
+
+    /* --- ENHANCED BACKGROUND ANIMATION --- */
+    .bg-animation {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(110, 142, 251, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(167, 119, 227, 0.15) 0%, transparent 40%);
+      z-index: -1;
     }
-    button:hover {
-      background-color: #00cc6e;
+
+    /* Moving Grid with 3D depth */
+    .grid-overlay {
+      position: absolute;
+      width: 200%; height: 200%;
+      top: -50%; left: -50%;
+      background-image: 
+        linear-gradient(rgba(110, 142, 251, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(110, 142, 251, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      transform: rotateX(45deg);
+      animation: gridDrift 20s linear infinite;
     }
-    .output {
-      margin-top: 30px;
-      background: #1e1e1e;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      word-break: break-all;
-      border: 1px solid #333;
+
+    @keyframes gridDrift {
+      0% { transform: rotateX(45deg) translateY(0); }
+      100% { transform: rotateX(45deg) translateY(100px); }
     }
+
+    /* --- CARD ENHANCEMENTS --- */
+    .card {
+      background: rgba(15, 15, 35, 0.7);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 35px;
+      width: 90%;
+      max-width: 420px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+      animation: cardEntrance 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+      overflow: hidden; /* For the scan effect */
+    }
+
+    /* Periodic Scan Line Effect */
+    .card::after {
+      content: "";
+      position: absolute;
+      top: -100%; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(transparent, rgba(0, 255, 170, 0.05), transparent);
+      animation: scan 4s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    .logo-box {
+      width: 90px; height: 90px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 24px;
+      margin: 0 auto 20px;
+      display: flex; justify-content: center; align-items: center;
+      font-size: 45px;
+      box-shadow: 0 10px 30px rgba(110, 142, 251, 0.5);
+      animation: logoFloat 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes logoFloat {
+      from { transform: translateY(0) scale(1) rotate(0); }
+      to { transform: translateY(-10px) scale(1.05) rotate(5deg); }
+    }
+
+    h1 { font-family: 'Orbitron', sans-serif; font-size: 26px; color: #fff; margin-bottom: 5px; letter-spacing: 2px; font-weight: 700; }
+    
+    /* Neon flicker effect on subtitle */
+    .subtitle {
+      color: #a0a0c0; font-size: 11px; margin-bottom: 30px; letter-spacing: 3px;
+      animation: flicker 3s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 22%, 24%, 55% { opacity: 0.5; }
+    }
+
+    .social-btns { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+    .s-btn {
+      width: 55px; height: 55px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
+      display: flex; justify-content: center; align-items: center;
+      color: #fff; text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .s-btn:hover { transform: translateY(-8px); background: rgba(110, 142, 251, 0.2); border-color: var(--primary); box-shadow: 0 10px 20px rgba(110, 142, 251, 0.3); }
+
+    input {
+      width: 100%; padding: 18px; background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
+      color: #fff; font-size: 16px; text-align: center; margin-bottom: 25px;
+      outline: none; transition: 0.3s;
+      position: relative; z-index: 2;
+    }
+    input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(110, 142, 251, 0.2); transform: scale(1.02); }
+
+    .btn-generate {
+      width: 100%; padding: 18px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border: none; border-radius: 20px; color: #fff;
+      font-weight: 600; font-size: 17px; cursor: pointer;
+      display: flex; justify-content: center; align-items: center; gap: 10px;
+      transition: 0.4s; position: relative; overflow: hidden;
+    }
+    
+    /* Shine effect on button hover */
+    .btn-generate::before {
+      content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: 0.5s;
+    }
+    .btn-generate:hover::before { left: 150%; }
+    .btn-generate:hover { letter-spacing: 1px; box-shadow: 0 0 30px rgba(110, 142, 251, 0.5); }
+
+    .result-box {
+      background: rgba(0, 0, 0, 0.6); padding: 25px; border-radius: 20px;
+      margin-top: 25px; display: none; border: 1px dashed var(--neon);
+      font-family: 'Orbitron', sans-serif; font-size: 22px; color: var(--neon);
+      text-shadow: 0 0 15px var(--neon);
+    }
+
+    .copy-btn {
+      margin-top: 20px; background: none; border: none;
+      color: #a0a0c0; cursor: pointer; display: flex; align-items: center;
+      gap: 8px; font-size: 14px; transition: 0.3s; opacity: 0.7;
+    }
+    .copy-btn:hover { color: #fff; opacity: 1; transform: translateY(-2px); }
+
+    .loading-spin {
+      width: 22px; height: 22px; border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: var(--neon); border-radius: 50%; display: none;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
   </style>
 </head>
 <body>
 
-  <h1>AHSAN-MD Pairing</h1>
+<div class="bg-animation">
+  <div class="grid-overlay"></div>
+</div>
 
-  <input type="text" id="number" placeholder="Enter WhatsApp Number (e.g., 923704298949)" />
-  <button onclick="getCode()">Generate Pair Code</button>
+<div class="card">
+  <div class="logo-box">
+    <i class="fas fa-robot"></i>
+  </div>
 
-  <div id="result" class="output" style="display:none;"></div>
+  <h1>AHSAN-MD</h1>
+  <p class="subtitle">ELITE LINKING SYSTEM</p>
 
-  <script>
-    async function getCode() {
-      const number = document.getElementById("number").value.trim();
-      const resultBox = document.getElementById("result");
+  <div class="social-btns">
+    <a href="https://youtube.com/@techwithchotahacker?si=PZCvWK65-NrBBv8_" class="s-btn"><i class="fab fa-youtube fa-lg"></i></a>
+    <a href="https://whatsapp.com/channel/0029VbC2O7bLNSaCiLASpj0I" class="s-btn"><i class="fab fa-whatsapp fa-lg"></i></a>
+    <a href="https://github.com/nobita0258?tab=repositories" class="s-btn"><i class="fab fa-github fa-lg"></i></a>
+  </div>
 
-      if (!number) {
-        alert("Please enter a valid number.");
-        return;
-      }
+  <input type="text" id="number" placeholder="+923704298949">
 
-      resultBox.style.display = 'block';
-      resultBox.textContent = "⏳ Generating code, please wait...";
+  <button class="btn-generate" onclick="getCode()">
+    <span id="btn-text">GENERATE CODE</span>
+    <div class="loading-spin" id="loader"></div>
+  </button>
 
-      try {
-        const res = await fetch(`/code?number=${encodeURIComponent(number)}`);
-        const data = await res.json();
+  <div id="result" class="result-box"></div>
+
+  <center>
+    <button class="copy-btn" onclick="copyCode()">
+      <i class="fas fa-copy"></i> Copy To Clipboard
+    </button>
+  </center>
+</div>
+
+<script>
+  async function getCode() {
+    const number = document.getElementById("number").value.trim();
+    const resultBox = document.getElementById("result");
+    const btnText = document.getElementById("btn-text");
+    const loader = document.getElementById("loader");
+
+    if (!number) {
+      alert("Please enter a valid number.");
+      return;
+    }
+
+    btnText.style.display = "none";
+    loader.style.display = "block";
+    resultBox.style.display = "none";
+
+    try {
+      const res = await fetch(`/code?number=${encodeURIComponent(number)}`);
+      const data = await res.json();
+
+      setTimeout(() => {
+        loader.style.display = "none";
+        btnText.style.display = "block";
+        resultBox.style.display = "block";
 
         if (data.code) {
-          resultBox.textContent = `✅ Pairing Code: ${data.code}`;
-        } else if (data.error) {
-          resultBox.textContent = `❌ Error: ${data.error}`;
+          resultBox.style.borderColor = "var(--neon)";
+          resultBox.style.color = "var(--neon)";
+          resultBox.textContent = data.code;
+          // Add a small shake animation to the result
+          resultBox.style.animation = "resultAnim 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
         } else {
-          resultBox.textContent = "⚠️ Unknown response received.";
+          resultBox.style.borderColor = "#ff4d4d";
+          resultBox.style.color = "#ff4d4d";
+          resultBox.textContent = "ERROR";
         }
-      } catch (err) {
-        resultBox.textContent = `❌ Failed to get code: ${err.message}`;
-      }
+      }, 1000);
+
+    } catch (err) {
+      loader.style.display = "none";
+      btnText.style.display = "block";
+      alert("Backend connection failed.");
     }
-  </script>
+  }
+
+  function copyCode() {
+    const code = document.getElementById("result").textContent;
+    if (code && code !== "GENERATE CODE") {
+      navigator.clipboard.writeText(code);
+      // Modern visual feedback instead of just alert
+      const btn = document.querySelector('.copy-btn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+      btn.style.color = "var(--neon)";
+      setTimeout(() => { 
+        btn.innerHTML = originalText;
+        btn.style.color = "#a0a0c0";
+      }, 2000);
+    }
+  }
+</script>
 
 </body>
 </html>
