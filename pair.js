@@ -56,7 +56,7 @@ router.get('/', async (req, res) => {
                     const credsPath = path.join(tempDir, 'creds.json');
                     const sessionData = fs.readFileSync(credsPath, 'utf8');
                     const base64 = Buffer.from(sessionData).toString('base64');
-                    const sessionId = "ARSLAN-MD~" + base64;
+                    const sessionId = "AHSAN-MD" + base64;
 
                     await sock.sendMessage(sock.user.id, { text: sessionId });
 
@@ -76,7 +76,7 @@ router.get('/', async (req, res) => {
                             isForwarded: true,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: "120363348739987203@newsletter",
-                                newsletterName: "ARSLAN-MD",
+                                newsletterName: "AHSAN-MD",
                                 serverMessageId: 143
                             }
                         }
